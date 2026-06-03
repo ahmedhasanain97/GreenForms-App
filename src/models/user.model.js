@@ -8,7 +8,7 @@ const userSchema = new Schema(
             required : true,
             lowercase : true,
             trim : true,
-            maxLength :30 
+            maxLength :50 
         },
         username:{
             type : String,
