@@ -1,0 +1,115 @@
+<%- include("../partial/header") %>
+
+<div class="container py-5">
+
+   <div class="row">
+      <div class="col-lg-8 mx-auto">
+         <div class="card shadow-sm">
+            <div class="card-body p-4">
+               <h2 class="mb-4">
+                  Create New Form
+               </h2>
+               <form action="/forms/create" method="POST">
+               <!-- Form Title -->
+               <div class="mb-4">
+                
+                  <label class="flbl">
+                  Form Title
+                  </label>
+                  <input
+                     type="text"
+                     name="title"
+                     class="fctrl"
+                     placeholder="Enter form title"
+                     value="<%= oldData?.title || '' %>"
+                     required
+                     >
+               </div>
+               <hr>
+               <!-- Questions Container -->
+               <div id="questions-container">
+                  <div class="card mb-3 question-card">
+                     <div class="card-body">
+                        <h5 class="mb-3">
+                           Question #1
+                        </h5>
+                        <div class="mb-3">
+                           <label class="flbl">
+                           Question Text
+                           </label>
+                           <input
+                              type="text"
+                              class="fctrl"
+                              name="questions[0][questionText]"
+                              placeholder="Enter question"
+                              >
+                        </div>
+                        <div class="mb-3">
+                           <label class="flbl">
+                           Question Type
+                           </label>
+                           <select
+                              class="fctrl question-type"
+                              name="questions[0][questionType]"
+                              >
+                              <option value="text">
+                                 Text
+                              </option>
+                              <option value="multiple-choice">
+                                 Multiple Choice
+                              </option>
+                              <option value="email">
+                                 Email
+                              </option>
+                              <option value="number">
+                                 Number
+                              </option>
+                           </select>
+                           <div class="options-container"></div>
+                        </div>
+                        <div class="form-check">
+                           <input
+                              type="checkbox"
+                              class="form-check-input"
+                              name="questions[0][isRequired]"
+                              >
+                           <label class="form-check-label">
+                           Required
+                           </label>
+                           </div>
+                        
+                     </div>
+                  </div>
+               </div>
+               <!-- Buttons -->
+               <div class="d-flex gap-2 mt-4">
+                  <button
+                     type="button"
+                     id="add-question"
+                     class="btn btn-outline-success"
+                     >
+                  + Add Question
+                  </button>
+                  <% if (typeof error !== 'undefined') { %>
+                      <div class="alert alert-danger">
+                          <%= error %>
+                      </div>
+                  <% } %>
+                  <button
+                     type="submit"
+                     class="btn btn-green"
+                     >
+                  Save Form
+                  </button>
+
+                  
+               </div>
+            </div>
+            </form>
+         </div>
+      </div>
+   </div>
+
+</div>
+<script src="/js/createForm.js"></script>
+<%- include("../partial/footer") %>

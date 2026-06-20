@@ -19,11 +19,11 @@ const submissionSchema = new Schema({
         required:true
     },
     answers:[{
-        questionId: { type: Schema.Types.ObjectId,ref:"Question", required: true },
+        questionId: { type: Schema.Types.ObjectId, required: true },
         answerValue: { type: mongoose.Schema.Types.Mixed, required: true }
     }]
 },{
-    timeseries:true
+    timestamps:true
 }
 )
 

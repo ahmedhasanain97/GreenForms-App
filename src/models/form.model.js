@@ -26,11 +26,17 @@ const formSchema = new Schema(
             questionType:{
                 type:String,
             },
+            options:[String]
+            ,
             isRequired:{
                 type:Boolean,
                 default:false
             }
-           }]
+           }],
+           responsesCount: {
+                type: Number,
+                default: 0
+           }
     },{
         timestamps:true
     }

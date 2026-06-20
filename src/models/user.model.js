@@ -31,9 +31,6 @@ const userSchema = new Schema(
             lowercase : true,
             trim : true,
         },
-        profilePicture :{
-            type : String
-        },
         loggedIn:{
             type:Boolean
         }

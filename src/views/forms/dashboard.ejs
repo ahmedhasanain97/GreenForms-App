@@ -1,0 +1,51 @@
+<%- include("../partial/header") %>
+
+<div class="container py-5">
+   <div class="d-flex justify-content-between align-items-center mb-4">
+      <div>
+         <h2 class="fw-bold">My Forms</h2>
+         <p class="text-muted mb-0">
+            Create and manage your forms
+         </p>
+      </div>
+   </div>
+   <div class="row g-4">
+    <% forms.forEach(form => { %>
+      <div class="col-lg-4 col-md-6">
+         <div class="card shadow-sm h-100">
+            <div class="card-body">
+               <h5 class="card-title">
+                  <%= form.title %>
+               </h5>
+               <hr>
+               <div class="d-flex justify-content-between mb-3">
+                  <small>Responses: <%= form.responsesCount %></small>
+                  <small><%= new Date(form.createdAt).toLocaleDateString("en-US", {
+                             month: "short",
+                             day: "2-digit",
+                             year: "numeric"}) %></small>
+               </div>
+               <div class="d-flex gap-2 flex-wrap">
+                  <a href="/form/<%= form.sharedId %>/submissions" class="btn btn-green btn-sm ">
+                  Responses
+                  </a>
+                  <a href="/forms/<%= form._id %>/edit" class="btn btn-outline-secondary btn-sm ">
+                  Edit
+                  </a>
+                  <a href="<%= form.sharedId %>" class="btn btn-outline-secondary btn-sm">
+                  Share
+                  </a>
+                  <form action="/forms/delete/<%= form._id %>?_method=DELETE" method="POST">
+                      <button class="btn btn-outline-danger btn-sm">
+                          Delete
+                      </button>
+                  </form>
+               </div>
+            </div>
+         </div>
+      </div>
+      <% }) %>
+   </div>
+</div>
+
+<%- include("../partial/footer") %>

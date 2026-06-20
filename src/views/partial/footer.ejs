@@ -1,0 +1,16 @@
+<% if (successMessage) { %>
+<div id="toast-success" class="toast-message success">
+    <span><%= successMessage %></span>
+    <button onclick="closeToast('toast-success')">&times;</button>
+</div>
+<% } %>
+
+<% if (errorMessage) { %>
+<div id="toast-error" class="toast-message error">
+    <span><%= errorMessage %></span>
+    <button onclick="closeToast('toast-error')">&times;</button>
+</div>
+<% } %>
+<script src="../js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,98 @@
+<%- include("../partial/header") %>
+
+<div class="container py-5">
+
+    <div class="card shadow-sm">
+        <div class="card-body">
+
+            <h2 class="mb-4">
+                <%= form.title %>
+            </h2>
+
+            <form action="/form/<%= form.sharedId %>/submit" method="POST">
+
+                <div class="mb-4">
+                    <label class="flbl">Your Name</label>
+                    <input
+                        type="text"
+                        class="fctrl"
+                        name="name"
+                        required
+                    >
+                </div>
+
+                <div class="mb-4">
+                    <label class="flbl">Your Email</label>
+                    <input
+                        type="email"
+                        class="fctrl"
+                        name="email"
+                        required
+                    >
+                </div>
+
+                <% form.questions.forEach((question,index)=>{ %>
+
+                    <div class="mb-4">
+
+                        <label class="flbl d-block mb-2">
+                            <%= question.questionText %>
+
+                            <% if(question.isRequired){ %>
+                                <span class="text-danger">*</span>
+                            <% } %>
+
+                        </label>
+
+                        <% if(question.questionType === "text"){ %>
+
+                            <input
+                                type="text"
+                                class="fctrl"
+                                name="answers[<%= index %>]"
+                                <%= question.isRequired ? "required" : "" %>
+                            >
+
+                        <% } else if (question.questionType === "email") { %>
+
+                            <input
+                                type="email"
+                                class="fctrl"
+                                name="answers[<%= index %>]"
+                                <%= question.isRequired ? "required" : "" %>
+                            >
+
+                        <% } else if (question.questionType === "number") { %>
+
+                            <input
+                                type="number"
+                                class="fctrl"
+                                name="answers[<%= index %>]"
+                                <%= question.isRequired ? "required" : "" %>
+                            >
+
+                        <% } else { %>%>
+
+                            <input
+                                type="text"
+                                class="fctrl"
+                                name="answers[<%= index %>]"
+                                <%= question.isRequired ? "required" : "" %>
+                            >
+                        <% } %>
+                    </div>
+
+                <% }) %>
+
+                <button class="btn btn-green">
+                    Submit
+                </button>
+
+            </form>
+
+        </div>
+    </div>
+
+</div>
+
+<%- include("../partial/footer") %>

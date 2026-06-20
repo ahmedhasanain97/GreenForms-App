@@ -9,6 +9,11 @@ const connectDB = async () => {
         console.log(`\n MongoDB connected !!!
             ${connectionInstance.connection.host}`);
         console.log(` Active Database: ${connectionInstance.connection.name}`);
+        mongoose.connection.once('open', async () => {
+                    // سيقوم بمسح أي Indexes قديمة مسببة للمشاكل وإعادة بنائها طبقاً للـ Schema الحالية
+                    await mongoose.model('User').cleanIndexes(); 
+                    console.log('Database Indexes synced successfully');
+                });
     } catch (error) {
         console.log("MongoDB connection failed",error)
         process.exit(1)

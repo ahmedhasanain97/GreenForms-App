@@ -6,25 +6,30 @@ const registerUser = async (req,res) => {
             const {name,username,email,password} = req.body;
             // basic validation
             if (!name || !username || !password || !email) {
-                return res.status(400).json({message: "All Fields Are Important!"})
+                return res.render("auth/register",{error:"All fields are important",oldData:{name,username,email}})
             }
 
             //check if user is already existing 
-            const existing = await User.findOne({email : email.toLowerCase()})
+            const existing = await User.findOne({$or: [
+                { email: email.toLowerCase() },
+                { username: username.toLowerCase() }
+            ]})
             if (existing) {
-                return res.status(400).json({message: "User Already Exists"})
+                return res.render("auth/register",{error:"user already exists",oldData:{name,username,email}})
             }
 
             //create user
             const user = await User.create({
                 name,
-                username,
+                username:username.toLowerCase(),
                 email :email.toLowerCase(),
                 password,
                 loggedIn:false,
             });
 
-            return res.status(201).json({message: "User Created Succesfully", user:{id:user._id,email:user.email,username:user.username}})
+        req.session.successMessage = `Account created successfully please log in to continue`;
+        return res.redirect("/login");
+
     } catch (error) {
         return res.status(500).json({message: "internal server error",error:error.message});
     }
@@ -36,11 +41,11 @@ try {
         //check if the user Exists
         const existing = await User.findOne({username:username.toLowerCase()})
         if(!existing){
-            return res.status(404).json({message:"user not found"})
+            return res.render("auth/login", {error: "Invalid username or password",oldData:{username}});
         }
         //compare password
         const isMatch = await existing.comparePassword(password)
-        if(!isMatch) return res.status(400).json({message:"password is invalid"})
+        if(!isMatch) return res.render("auth/login", {error: "Invalid username or password",oldData:{username}});
         
         existing.loggedIn = true;
         await existing.save();
@@ -48,7 +53,8 @@ try {
                  _id: existing._id,
                  username: existing.username
                 };
-        return res.status(200).json({message:"user logged in", user:{id:existing._id,email:existing.email,username:existing.username}})  
+        req.session.successMessage = `Welcome back ${existing.name}`;
+        return res.redirect("/");
 
 } catch (error) {
     return res.status(500).json({message: "internal server error",error:error.message});
@@ -57,16 +63,16 @@ try {
 
 const logoutUser = async (req,res) => {
     try {
-        const {username} = req.body
             //check if the user Exists
-            const existing = await User.findOne({username:username.toLowerCase()})
-            if(!existing){
-                return res.status(404).json({message:"user not found"})
+            if(req.session.user){
+                 await User.findByIdAndUpdate(req.session.user._id,{loggedIn: false})
             }
-            existing.loggedIn = false;
-            await existing.save();
-            req.session.destroy();
-            return res.status(200).json({message:"user loggedout successfully"})
+            req.session.destroy((err) => {
+                if (err) {
+                    return res.status(500).json({message:"error destroying session"})
+                }
+            });
+            return res.redirect("/");
     } catch (error) {
         return res.status(500).json({message: "internal server error",error:error.message});
     }  

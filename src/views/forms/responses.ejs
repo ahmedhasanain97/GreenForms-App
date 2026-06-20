@@ -1,0 +1,66 @@
+<%- include("../partial/header") %>
+
+<div class="container py-5">
+
+    <div class="mb-4">
+        <h2 class="fw-bold"><%= form.title %> Responses</h2>
+        <p class="text-muted">
+            Total Responses: <%= submissions.length %>
+        </p>
+    </div>
+        <% if (submissions.length === 0) { %>
+        
+            <div class="alert alert-info">
+                No responses yet.
+            </div>
+        
+        <% } %>
+    <div class="row g-4">
+
+        <% submissions.forEach(submission => { %>
+
+            <div class="col-lg-6">
+
+                <div class="card shadow-sm h-100">
+
+                    <div class="card-body">
+
+                        <h5 class="card-title mb-1">
+                            <%= submission.name %>
+                        </h5>
+
+                        <p class="text-muted mb-3">
+                            <%= submission.email %>
+                        </p>
+
+                        <hr>
+
+                        <% submission.answers.forEach((answer, index) => { %>
+
+                            <div class="mb-3">
+
+                                <strong class="d-block mb-1">
+                                    <%= form.questions[index].questionText %>
+                                </strong>
+
+                                <p class="mb-0">
+                                    <%= answer.answerValue %>
+                                </p>
+
+                            </div>
+
+                        <% }) %>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        <% }) %>
+
+    </div>
+
+</div>
+
+<%- include("../partial/footer") %>

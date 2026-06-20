@@ -1,0 +1,45 @@
+<%- include("../partial/header") %>
+      <!-- Login FORM -->
+      <section id="login">
+         <div class="container">
+         
+            <div class="text-center mb-5" data-aos="fade-up">
+               <span class="slbl">Login</span>
+            </div>
+         
+            <div class="row justify-content-center">
+               <div class="col-lg-4 col-md-6">
+               
+                  <div class="login-fcard">
+                     <form action="/login" method="POST">
+                     
+                        <div class="row g-3">
+                           <div class="col-12">
+                              <label class="flbl">Username</label>
+                              <input name="username" type="text" class="fctrl" placeholder="username">
+                           </div>
+                        
+                           <div class="col-12">
+                              <label class="flbl">Password</label>
+                              <input name="password" type="password" class="fctrl" placeholder="password">
+                           </div>
+                            <% if (typeof error !== 'undefined') { %>
+                                <div class="alert alert-danger">
+                                    <%= error %>
+                                </div>
+                            <% } %>
+                           <div class="col-12">
+                              <button class="btn-green w-100 justify-content-center" type="submit">
+                                 Login
+                              </button>
+                           </div>
+                        </div>
+                     
+                     </form>
+                  </div>
+               </div>
+            </div>
+         
+         </div>
+      </section>
+<%- include("../partial/footer") %>

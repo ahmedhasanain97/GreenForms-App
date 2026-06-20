@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GreenForms</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg" id="nav">
+         <div class="container">
+            <a class="navbar-brand" href="/">
+               <div class="blogo">
+                  <div class="bico"><img src="/imgs/GreenFormsLogo.png" alt="logo"></div>
+                  <div>
+                     <div class="bname">Green<span>Forms</span></div>
+                     <!-- <div class="bsub">Effortless Green Digital Forms</div> -->
+                  </div>
+               </div>
+            </a>
+            <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navmenu">
+            <i class="fas fa-bars" style="color:var(--primary);font-size:1.35rem;"></i>
+            </button>
+            <div class="collapse navbar-collapse" id="navmenu">
+               <ul class="navbar-nav mx-auto">
+                  <li class="nav-item"><a class="nav-link active" href="/">Home</a></li>
+                  <li class="nav-item"><a class="nav-link" href="/forms/dashboard">My Forms</a></li>
+                  <% if (!user) { %>
+                     <li class="nav-item"><a class="nav-link" href="/register">Register</a></li>
+                     <li class="nav-item"><a class="nav-link" href="/login">Login</a></li>
+                  <% } else { %>
+                     <li class="nav-item"><a class="nav-link" href="#"><%= user.username %></a></li>
+                     <li class="nav-item"><a class="nav-link" href="/logout">Logout</a></li>
+                  <% } %>
+               </ul>
+               <div class="d-flex align-items-center gap-1">
+                  <!-- FIX 1: Search button -->
+                  <a href="/forms/create" class="nav-link nav-cta">Create Form</a>
+               </div>
+            </div>
+         </div>
+      </nav> 

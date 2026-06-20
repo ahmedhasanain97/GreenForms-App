@@ -1,0 +1,57 @@
+<%- include("../partial/header") %>
+      <!-- Login FORM -->
+      <section id="register">
+         <div class="container">
+         
+            <div class="text-center mb-5" data-aos="fade-up">
+               <span class="slbl">Register</span>
+            </div>
+         
+            <div class="row justify-content-center">
+               <div class="col-lg-4 col-md-6">
+               
+                  <div class="login-fcard">
+                     <form action="/register" method="POST">
+                     
+                        <div class="row g-3">
+                           <div class="col-12">
+                              <label class="flbl">Name</label>
+                              <input name="name" type="text" class="fctrl" placeholder="name" value="<%= oldData?.name || '' %>">
+                           </div>
+
+                           <div class="col-12">
+                              <label class="flbl">Username</label>
+                              <input name="username" type="text" class="fctrl" placeholder="username" value="<%= oldData?.username || '' %>">
+                           </div>
+                        
+                           <div class="col-12">
+                              <label class="flbl">Password</label>
+                              <input name="password" type="password" class="fctrl" placeholder="password">
+                           </div>
+
+                           <div class="col-12">
+                              <label class="flbl">Email</label>
+                              <input name="email" type="text" class="fctrl" placeholder="email" value="<%= oldData?.email || '' %>">
+                           </div>
+
+                           
+                            <% if (typeof error !== 'undefined') { %>
+                                <div class="alert alert-danger">
+                                    <%= error %>
+                                </div>
+                            <% } %>
+                           <div class="col-12">
+                              <button class="btn-green w-100 justify-content-center" type="submit">
+                                 Register
+                              </button>
+                           </div>
+                        </div>
+                     
+                     </form>
+                  </div>
+               </div>
+            </div>
+         
+         </div>
+      </section>
+<%- include("../partial/footer") %>
